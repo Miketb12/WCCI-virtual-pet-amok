@@ -1,24 +1,17 @@
 package pets_amok;
 
-public class RoboticDog extends VirtualPet {
+public class RoboticDog extends Robotic {
 
-    private int oilLevel;
-
-    public int getOil() {
-        return oilLevel;
+    // Constructors
+    public RoboticDog(String name, String desc) {
+        super(name, desc);
     }
 
-    public void setOil(int oilLevel) {
-        this.oilLevel = oilLevel;
-    }
+    // Methods
 
-    public RoboticDog(String name, String botOrOgo) {
-        super(name, botOrOgo);
-        this.oilLevel = 80;
-    }
-
-    public void addRust() {
-        this.oilLevel -= 10;
+    public void walkDog() {
+        this.setHappiness(this.getHappiness() + 50);
+        this.tick();
     }
 
 }

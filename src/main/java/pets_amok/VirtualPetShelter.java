@@ -5,85 +5,83 @@ import java.util.List;
 
 public class VirtualPetShelter {
 
-    private int litterbox;
+    // Variables
 
-    public void setLitterBox(int litterSoilLvl) {
-        this.litterbox = litterSoilLvl;
+    private static int litterbox;
+
+    public static int petNum = 1;
+
+    // Setters
+
+    public static void setLitterBox(int litterSoilLvl) {
+        litterbox = litterSoilLvl;
     }
 
-    public int getLitterSoil() {
+    // Getters
+
+    public static int getLitterBox() {
         return litterbox;
     }
 
     // Collections
     List<VirtualPet> shelter = new ArrayList<VirtualPet>();
-    List<OrganicDog> dogShelterO = new ArrayList<OrganicDog>();
-    List<RoboticDog> dogShelterR = new ArrayList<RoboticDog>();
-    List<OrganicCat> catShelterO = new ArrayList<OrganicCat>();
-    List<RoboticCat> catShelterR = new ArrayList<RoboticCat>();
 
     // Methods
     public void addPet(VirtualPet pet) {
         shelter.add(pet);
     }
 
-    public void addOrgoDog(OrganicDog pet) {
-        dogShelterO.add(pet);
-    }
-
-    public void addOrgoCat(OrganicCat pet) {
-        catShelterO.add(pet);
-    }
-
-    public void addRoboDog(RoboticDog pet) {
-        dogShelterR.add(pet);
-    }
-
-    public void addRoboCat(RoboticCat pet) {
-        catShelterR.add(pet);
-    }
-
     public void showAllPets() {
-        System.out.println("Name\t\tHealth\t\tHappiness\tCage/Oil/Litterbox Soil\t\tOrganic or Robotic");
+        System.out.println("Name\t\tHappiness\tHealth\t\tHunger\t\tThirst\t\tCage Soil\tOil Level\tLitterBox Soil");
         System.out.println(
-                "-------------------------------------------------------------------------------------------------");
-        for (int i = 0; i < dogShelterO.size(); i++) {
-            System.out.println(
-                    dogShelterO.get(i).getName() + "\t\t|" + dogShelterO.get(i).getHealth() + "\t\t"
-                            + dogShelterO.get(i).getHappiness() + "\t\t\t" + dogShelterO.get(i).getSoilLvl()
-                            + "\t\t\t\t"
-                            + dogShelterO.get(i).getBotOrOrgo());
-        }
-        for (int j = 0; j < dogShelterR.size(); j++) {
-            System.out.println(
-                    dogShelterR.get(j).getName() + "\t\t|" + dogShelterR.get(j).getHealth() + "\t\t"
-                            + dogShelterR.get(j).getHappiness() + "\t\t\t" + dogShelterR.get(j).getOil() + "\t\t\t\t"
-                            + dogShelterR.get(j).getBotOrOrgo());
-        }
-        for (int m = 0; m < catShelterO.size(); m++) {
-            System.out.println(
-                    catShelterO.get(m).getName() + "\t\t|" + catShelterO.get(m).getHealth() + "\t\t"
-                            + catShelterO.get(m).getHappiness() + "\t\t\t" + litterbox + "\t\t\t\t"
-                            + catShelterO.get(m).getBotOrOrgo());
-        }
-        for (int n = 0; n < catShelterR.size(); n++) {
-            System.out.println(
-                    catShelterR.get(n).getName() + "\t\t|" + catShelterR.get(n).getHealth() + "\t\t"
-                            + catShelterR.get(n).getHappiness() + "\t\t\t" + catShelterR.get(n).getOil() + "\t\t\t\t"
-                            + catShelterR.get(n).getBotOrOrgo());
+                "------------------------------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < shelter.size(); i++) {
+            if (shelter.get(i) instanceof OrganicDog) {
+                OrganicDog myDog = (OrganicDog) shelter.get(i);
+                System.out.println(myDog.getName() + "\t\t" + myDog.getHappiness() + "\t\t" + myDog.getHealth() + "\t\t"
+                        + myDog.getHunger() + "\t\t"
+                        + myDog.getThirst() + "\t\t" + myDog.getSoilLvl() + "\t\t" + "--" + "\t\t" + "--");
+            } else if (shelter.get(i) instanceof RoboticDog) {
+                RoboticDog roboDog = (RoboticDog) shelter.get(i);
+                System.out
+                        .println(roboDog.getName() + "\t\t" + roboDog.getHappiness() + "\t\t" + roboDog.getHealth()
+                                + "\t\t" + "--" + "\t\t" + "--"
+                                + "\t\t"
+                                + "--" + "\t\t" + roboDog.getOil() + "\t\t" + "--");
+            } else if (shelter.get(i) instanceof OrganicCat) {
+                OrganicCat myCat = (OrganicCat) shelter.get(i);
+                System.out.println(
+                        myCat.getName() + "\t\t" + myCat.getHappiness() + "\t\t" + myCat.getHealth() + "\t\t"
+                                + myCat.getHunger() + "\t\t"
+                                + myCat.getThirst() + "\t\t" + "--" + "\t\t" + "--" + "\t\t"
+                                + VirtualPetShelter.getLitterBox());
+            } else if (shelter.get(i) instanceof RoboticCat) {
+                RoboticCat roboCat = (RoboticCat) shelter.get(i);
+                System.out
+                        .println(roboCat.getName() + "\t\t" + roboCat.getHappiness() + "\t\t" + roboCat.getHealth()
+                                + "\t\t" + "--" + "\t\t" + "--"
+                                + "\t\t"
+                                + "--" + "\t\t" + roboCat.getOil() + "\t\t" + "--");
+            }
         }
 
     }
 
     public void feedPets() {
         for (int i = 0; i < shelter.size(); i++) {
-            shelter.get(i).feed();
+            if (shelter.get(i) instanceof Organic) {
+                Organic myPet = (Organic) shelter.get(i);
+                myPet.feed();
+            }
         }
     }
 
     public void waterPets() {
         for (int i = 0; i < shelter.size(); i++) {
-            shelter.get(i).water();
+            if (shelter.get(i) instanceof Organic) {
+                Organic myPet = (Organic) shelter.get(i);
+                myPet.water();
+            }
         }
     }
 
@@ -119,39 +117,41 @@ public class VirtualPetShelter {
             shelter.get(i).tick();
 
         }
-        for (int i = 0; i < dogShelterO.size(); i++) {
-            dogShelterO.get(i).soilInc();
-        }
-        for (int j = 0; j < dogShelterR.size(); j++) {
-            dogShelterR.get(j).addRust();
-        }
-        for (int i = 0; i < catShelterR.size(); i++) {
-            catShelterR.get(i).addRust();
-        }
     }
 
     // AMOK ADDITIONS
 
-    public void oilBots() {
-        for (int i = 0; i < catShelterR.size(); i++) {
-            catShelterR.get(i).setOil(100);
-        }
-        for (int j = 0; j < dogShelterR.size(); j++) {
-            dogShelterR.get(j).setOil(100);
+    public void takeCareOfBots() {
+        for (int i = 0; i < shelter.size(); i++) {
+            if (shelter.get(i) instanceof Robotic) {
+                Robotic roboPet = (Robotic) shelter.get(i);
+                roboPet.addOil();
+            }
         }
     }
 
     public void cleanCages() {
-        for (int i = 0; i < dogShelterO.size(); i++) {
-            dogShelterO.get(i).setSoilLvl(-10);
+        for (int i = 0; i < shelter.size(); i++) {
+            if (shelter.get(i) instanceof OrganicDog) {
+                OrganicDog orgoPet = (OrganicDog) shelter.get(i);
+                orgoPet.cleanCage();
+            }
         }
     }
 
     public void emptyLitter() {
-        litterbox = -15;
+        litterbox = 0;
     }
 
     public void walkDogs() {
-
+        for (int i = 0; i < shelter.size(); i++) {
+            if (shelter.get(i) instanceof RoboticDog) {
+                RoboticDog roboPet = (RoboticDog) shelter.get(i);
+                roboPet.walkDog();
+            } else if (shelter.get(i) instanceof OrganicDog) {
+                OrganicDog orgoPet = (OrganicDog) shelter.get(i);
+                orgoPet.walkDog();
+            }
+        }
     }
 }

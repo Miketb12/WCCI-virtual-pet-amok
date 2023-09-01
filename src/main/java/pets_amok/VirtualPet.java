@@ -7,15 +7,9 @@ public class VirtualPet {
 
     private String desc;
 
-    private int thirst;
-
-    private int hunger;
-
-    private int health;
-
     private int happiness;
 
-    private String botOrOrgo;
+    private int health;
 
     // Getters
     public String getName() {
@@ -26,16 +20,12 @@ public class VirtualPet {
         return desc;
     }
 
-    public int getHealth() {
-        return health;
-    }
-
     public int getHappiness() {
         return happiness;
     }
 
-    public String getBotOrOrgo() {
-        return botOrOrgo;
+    public int getHealth() {
+        return health;
     }
 
     // Setters
@@ -43,63 +33,55 @@ public class VirtualPet {
         this.name = name;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public void setHappiness(int happiness) {
         this.happiness = happiness;
     }
 
-    public void setBotOrOrgo(String botOrOgo) {
-        this.botOrOrgo = botOrOgo;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     // Constructors
 
-    public VirtualPet(String name, String botOrOgo) {
+    public VirtualPet(String name, String desc) {
         this.name = name;
+        this.desc = desc;
         this.health = 80;
-        this.happiness = 30;
-        this.botOrOrgo = botOrOgo;
+        this.happiness = 100;
+    }
+
+    public VirtualPet(String name) {
+        this.name = name;
     }
 
     // Functions
 
-    public void water() {
-        thirst -= 15;
-    }
-
     public void play() {
-        happiness += 10;
-    }
-
-    public void feed() {
-        hunger -= 10;
+        this.happiness += 40;
     }
 
     public void tick() {
-        hunger += 5;
-        thirst += 7;
-        happiness -= 9;
-        if (hunger <= 0) {
-            hunger = 0;
-        } else if (hunger >= 100) {
-            hunger = 100;
+        this.happiness -= 10;
+        this.health -= 5;
+        if (this.happiness <= 40) {
+            this.health -= 10;
         }
-        if (happiness <= 0) {
-            happiness = 0;
-        } else if (happiness >= 100) {
-            happiness = 100;
+        if (this.health <= 0) {
+            this.health = 10;
         }
-        if (thirst <= 0) {
-            thirst = 0;
-        } else if (thirst >= 100) {
-            thirst = 100;
+        if (this.health >= 100) {
+            this.health = 100;
+        } else if (this.health <= 0) {
+            this.health = 0;
+        }
+        if (this.happiness >= 100) {
+            this.happiness = 100;
+        } else if (this.happiness <= 0) {
+            this.happiness = 0;
         }
     }
 }

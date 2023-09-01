@@ -8,19 +8,20 @@ public class Application {
         // Important Variables
         int choice;
         Scanner input = new Scanner(System.in);
+
+        OrganicDog cookie = new OrganicDog("Cookie", "Zoomies master", 50, 20);
+        RoboticDog brook = new RoboticDog("Brook", "Immortal best friend");
+        OrganicCat peanut = new OrganicCat("Peanut", "Acts like a human", 50, 20);
+        RoboticCat cloe = new RoboticCat("Cloe", "Loves to sleep on the couch");
+
         VirtualPetShelter shelter = new VirtualPetShelter();
 
-        OrganicDog cookie = new OrganicDog("Cookie", "O");
-        OrganicCat mickey = new OrganicCat("Mickey", "O");
-        RoboticDog cloe = new RoboticDog("Cloe", "R");
-        RoboticCat peanut = new RoboticCat("Peanut", "R");
+        shelter.addPet(cookie);
+        shelter.addPet(brook);
+        shelter.addPet(peanut);
+        shelter.addPet(cloe);
 
-        shelter.addOrgoDog(cookie);
-        shelter.addRoboDog(cloe);
-        shelter.addOrgoCat(mickey);
-        shelter.addRoboCat(peanut);
-
-        shelter.setLitterBox(10);
+        VirtualPetShelter.setLitterBox(10);
 
         // Game Loop
 
@@ -33,8 +34,8 @@ public class Application {
             System.out.println();
 
             System.out.println("What would you like to do next?");
-            System.out.println("1)Feed the pets ");
-            System.out.println("2)Water the pets ");
+            System.out.println("1)Feed the pets");
+            System.out.println("2)Water the pets");
             System.out.println("3)Play with a pet");
             System.out.println("4)Adopt a pet");
             System.out.println("5)Admit a pet");
@@ -42,7 +43,6 @@ public class Application {
             System.out.println("7)Clean dog cages");
             System.out.println("8)Clean shelter litterbox");
             System.out.println("9)Oil all robotic pets");
-            System.out.println("10)Quit ");
             System.out.println();
             choice = input.nextInt();
             input.nextLine();
@@ -80,25 +80,26 @@ public class Application {
                     System.out.println("Please enter a name for the pet");
                     String name;
                     name = input.nextLine();
-                    System.out.println("Dog or cat?");
-                    String type;
-                    type = input.nextLine();
-                    System.out.println("Robotic(R) or Organic(O); single character answer");
-                    String botOrOrgo;
-                    botOrOrgo = input.nextLine();
+                    System.out.println("Please enter a brief description of the pet");
+                    String desc;
+                    desc = input.nextLine();
                     System.out.println();
-                    if ((type.equals("Dog") || type.equals("dog")) && botOrOrgo.equals("O")) {
-                        OrganicDog x = new OrganicDog(name, botOrOrgo);
-                        shelter.addOrgoDog(x);
-                    } else if ((type.equals("Dog") || type.equals("dog")) && botOrOrgo.equals("R")) {
-                        RoboticDog x = new RoboticDog(name, botOrOrgo);
-                        shelter.addRoboDog(x);
-                    } else if ((type.equals("Cat") || type.equals("cat")) && botOrOrgo.equals("R")) {
-                        RoboticCat x = new RoboticCat(name, botOrOrgo);
-                        shelter.addRoboCat(x);
-                    } else if ((type.equals("Cat") || type.equals("cat")) && botOrOrgo.equals("O")) {
-                        OrganicCat x = new OrganicCat(name, botOrOrgo);
-                        shelter.addOrgoCat(x);
+                    System.out.println("What kind of pet is it? Enter numeric choice");
+                    System.out.println("1-Robotic Dog 2-Robotic Cat 3-Organic Dog 4-Organic Cat");
+                    int pChoice;
+                    pChoice = input.nextInt();
+                    if (pChoice == 1) {
+                        RoboticDog x = new RoboticDog(name, desc);
+                        shelter.addPet(x);
+                    } else if (pChoice == 2) {
+                        RoboticCat x = new RoboticCat(name, desc);
+                        shelter.addPet(x);
+                    } else if (pChoice == 3) {
+                        OrganicDog x = new OrganicDog(name, desc, 50, 20);
+                        shelter.addPet(x);
+                    } else if (pChoice == 4) {
+                        OrganicCat x = new OrganicCat(name, desc, 50, 20);
+                        shelter.addPet(x);
                     }
                     break;
                 case 6:
@@ -115,10 +116,8 @@ public class Application {
                     break;
                 case 9:
                     // Oil all robotic pets
-                    shelter.oilBots();
+                    shelter.takeCareOfBots();
                     break;
-                case 10:
-                    System.exit(0);
                 default:
                     System.out.println();
             }
